@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyTracker Aero · Flight Lookup &amp; Schedule Tracker</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface-container-highest": "#2c344d",
+                  "secondary": "#ffb86b",
+                  "outline-variant": "#3b494b",
+                  "surface-variant": "#2c344d",
+                  "error-container": "#93000a",
+                  "on-secondary": "#492900",
+                  "on-primary-fixed": "#002022",
+                  "primary-fixed-dim": "#00dbe9",
+                  "inverse-on-surface": "#282f49",
+                  "on-primary-container": "#006970",
+                  "primary-container": "#00f0ff",
+                  "surface-container-lowest": "#050d25",
+                  "background": "#0a122a",
+                  "secondary-fixed-dim": "#ffb86b",
+                  "on-secondary-fixed": "#2c1700",
+                  "tertiary-container": "#e8d0ff",
+                  "surface-bright": "#313852",
+                  "tertiary": "#fcf3ff",
+                  "on-tertiary-container": "#8031d1",
+                  "on-secondary-container": "#583300",
+                  "on-tertiary-fixed": "#2b0052",
+                  "outline": "#849495",
+                  "on-background": "#dbe1ff",
+                  "on-tertiary-fixed-variant": "#6600b7",
+                  "on-primary-fixed-variant": "#004f54",
+                  "surface-dim": "#0a122a",
+                  "error": "#ffb4ab",
+                  "on-primary": "#00363a",
+                  "on-error-container": "#ffdad6",
+                  "surface-container-low": "#131a33",
+                  "tertiary-fixed": "#efdbff",
+                  "surface-container-high": "#212942",
+                  "on-tertiary": "#470083",
+                  "surface-container": "#171e37",
+                  "on-error": "#690005",
+                  "secondary-fixed": "#ffdcbc",
+                  "on-surface": "#dbe1ff",
+                  "secondary-container": "#ed9000",
+                  "primary-fixed": "#7df4ff",
+                  "primary": "#dbfcff",
+                  "inverse-surface": "#dbe1ff",
+                  "surface-tint": "#00dbe9",
+                  "tertiary-fixed-dim": "#dbb8ff",
+                  "on-secondary-fixed-variant": "#683d00",
+                  "inverse-primary": "#006970",
+                  "on-surface-variant": "#b9cacb",
+                  "surface": "#0a122a"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.125rem",
+                  "lg": "0.25rem",
+                  "xl": "0.5rem",
+                  "full": "0.75rem"
+          },
+          "spacing": {
+                  "grid-margin-mobile": "1rem",
+                  "gutter-desktop": "1.5rem",
+                  "space-xs": "0.25rem",
+                  "space-md": "1rem",
+                  "space-3xl": "4rem",
+                  "grid-margin-desktop": "2rem",
+                  "space-sm": "0.5rem",
+                  "gutter-mobile": "0.75rem",
+                  "space-xxs": "0.125rem",
+                  "space-lg": "1.5rem",
+                  "grid-margin-tablet": "1.5rem",
+                  "space-2xl": "3rem",
+                  "gutter-tablet": "1rem",
+                  "space-xl": "2rem"
+          },
+          "fontFamily": {
+                  "display-lg": ["Space Grotesk"],
+                  "headline-xl": ["Space Grotesk"],
+                  "body-md": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-md": ["Space Grotesk"],
+                  "telemetry-value-md": ["JetBrains Mono"],
+                  "telemetry-value-lg": ["JetBrains Mono"],
+                  "title-sm": ["Space Grotesk"],
+                  "label-mono": ["JetBrains Mono"],
+                  "body-sm": ["Inter"],
+                  "headline-xl-mobile": ["Space Grotesk"],
+                  "label-caps": ["Space Grotesk"],
+                  "display-lg-mobile": ["Space Grotesk"]
+          },
+          "fontSize": {
+                  "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                  "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                  "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                  "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400" }],
+                  "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                  "telemetry-value-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                  "telemetry-value-lg": ["28px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                  "title-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }],
+                  "label-mono": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "500" }],
+                  "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                  "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                  "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+                  "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    @keyframes radarScan {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(0.98); }
+      50% { opacity: 0.8; transform: scale(1.02); }
+    }
+    @keyframes strobeFlash {
+      0%, 94%, 100% { opacity: 0.1; filter: drop-shadow(0 0 0px #ff3344); }
+      96%, 98% { opacity: 1; filter: drop-shadow(0 0 16px #ff3366); }
+    }
+    @keyframes heatShimmer {
+      0% { transform: translateY(0) scaleX(1); opacity: 0.7; }
+      50% { transform: translateY(-4px) scaleX(1.04); opacity: 0.9; }
+      100% { transform: translateY(0) scaleX(1); opacity: 0.7; }
+    }
+    @keyframes slipstreamDrift {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-800px, 400px, 0); }
+    }
+    .radar-sweep {
+      animation: radarScan 6s linear infinite;
+      transform-origin: center center;
+    }
+    .strobe-beacon {
+      animation: strobeFlash 1.6s infinite ease-in-out;
+    }
+    .engine-shimmer {
+      animation: heatShimmer 0.4s infinite ease-in-out alternate;
+    }
+    .cockpit-grid {
+      background-image: 
+        radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+      background-size: 32px 32px, 64px 64px, 64px 64px;
+    }
+    /* Aircraft Oval Passenger Window Bezel Styling */
+    .oval-window-bezel {
+      border-radius: 90px;
+      box-shadow: 
+        inset 0 0 0 16px #0d162f,
+        inset 0 0 0 24px #1b2649,
+        inset 0 0 45px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(0, 240, 255, 0.25);
+    }
+    .cockpit-hud-crosshair {
+      background-image: radial-gradient(circle, rgba(0,240,255,0.15) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="bg-[#040814] text-on-surface font-body-md antialiased min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-surface-container-lowest cockpit-grid">
+<!-- ==================== LIVE AMBIENT SUBORBITAL FLIGHT WINDOW BACKDROP CANVAS ==================== -->
+<div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden" id="ambient-flight-window-layer">
+<canvas class="w-full h-full object-cover opacity-60 transition-opacity duration-700" id="ambientFlightCanvas"></canvas>
+<!-- Atmospheric Sunset Horizon & Speed Mist Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#030611]/90 via-[#061028]/70 to-[#040816]/95 mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-tr from-cyan-950/20 via-transparent to-amber-500/10 pointer-events-none"></div>
+</div>
+<!-- Ambient Holographic Light Nodes -->
+<div class="fixed top-0 left-1/4 w-96 h-96 bg-primary-container/10 blur-[128px] rounded-full pointer-events-none -z-10"></div>
+<div class="fixed top-1/3 right-10 w-[30rem] h-[30rem] bg-secondary/5 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+<div class="fixed bottom-10 left-1/3 w-[36rem] h-[36rem] bg-tertiary-container/5 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+<!-- ==================== 1. SHARED COMPONENT: TopNavBar ==================== -->
+<header class="sticky top-0 z-50 bg-[#050d25]/85 backdrop-blur-xl border-b border-primary-container/25 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+<div class="w-full px-grid-margin-desktop py-space-sm flex justify-between items-center">
+<!-- Brand & Left Search -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center justify-center w-8 h-8 rounded border border-primary-container/40 bg-surface-container-low shadow-[0_0_12px_rgba(0,240,255,0.3)]">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="rocket_launch">rocket_launch</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold tracking-wider text-primary-container uppercase">SkyTracker Aero</span>
+<span class="text-label-mono font-label-mono text-outline text-[9px] tracking-widest uppercase">SYSTEM V4.8 · QUANTUM RECONNECT</span>
+</div>
+</div>
+<!-- Search Bar on Left (Shared Component Schema) -->
+<div class="hidden xl:flex items-center relative w-96">
+<span class="material-symbols-outlined absolute left-space-sm text-outline text-[18px]" data-icon="search">search</span>
+<input class="w-full bg-[#050d25]/90 border border-primary-container/30 rounded pl-9 pr-space-md py-1.5 text-body-sm text-on-surface placeholder:text-outline/70 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container font-label-mono transition-all backdrop-blur-md" placeholder="Lookup Flight No, ICAO, Call-sign or Airport (e.g. QA-892, JFK, HND)..." type="text"/>
+<span class="absolute right-2 px-1.5 py-0.5 rounded text-[9px] font-label-mono bg-surface-container-high text-outline-variant border border-outline-variant/30">⌘K</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-primary-container border-b-2 border-primary-container font-headline-md text-title-sm pb-1 flex items-center gap-1.5" href="#radar">
+<span class="material-symbols-outlined text-[16px]" data-icon="videocam">videocam</span>
+          Live Flight Cams
+        </a>
+<a class="text-on-surface-variant font-headline-md text-title-sm hover:text-primary transition-colors flex items-center gap-1.5" href="#vectors">
+<span class="material-symbols-outlined text-[16px]" data-icon="alt_route">alt_route</span>
+          Flight Vectors
+        </a>
+<a class="text-on-surface-variant font-headline-md text-title-sm hover:text-primary transition-colors flex items-center gap-1.5" href="#trajectories">
+<span class="material-symbols-outlined text-[16px]" data-icon="stream">stream</span>
+          Orbital Trajectories
+        </a>
+<a class="text-on-surface-variant font-headline-md text-title-sm hover:text-primary transition-colors flex items-center gap-1.5" href="#telemetry">
+<span class="material-symbols-outlined text-[16px]" data-icon="analytics">analytics</span>
+          Quantum Telemetry
+        </a>
+</nav>
+<!-- Trailing Status Actions & Commander Badge -->
+<div class="flex items-center gap-space-md">
+<!-- Ambient Stream Window Toggle -->
+<button class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#050d25]/90 border border-primary-container/40 text-primary hover:border-primary transition-all text-[11px] font-label-mono" id="ambientStreamToggleBtn" onclick="toggleAmbientBackdrop()">
+<span class="material-symbols-outlined text-[15px] text-primary-container">flight_class</span>
+<span>WINDOW FEED: <span class="text-primary-container font-bold" id="ambientToggleStatus">ACTIVE</span></span>
+</button>
+<!-- Live System Badges -->
+<div class="hidden lg:flex items-center gap-space-xs border border-primary-container/30 px-space-sm py-1 rounded bg-[#050d25]/80">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00f0ff]"></span>
+<span class="text-label-mono font-label-mono text-[11px] text-on-surface-variant">GRID: <strong class="text-primary-container">ONLINE (99.98%)</strong></span>
+</div>
+<div class="hidden lg:flex items-center gap-1 text-label-mono font-label-mono text-outline text-[11px] bg-surface-container-low/80 px-2.5 py-1 rounded border border-outline-variant/20">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="schedule">schedule</span>
+<span>UTC 14:42:19 ZULU</span>
+</div>
+<!-- Trailing Action Button -->
+<button class="flex items-center gap-1.5 px-space-md py-1.5 bg-primary-container/10 border border-primary-container text-primary-container font-headline-md text-title-sm rounded hover:bg-primary-container hover:text-surface-container-lowest transition-all active:scale-[0.98] shadow-[0_0_16px_rgba(0,240,255,0.25)]">
+<span class="material-symbols-outlined text-[16px]" data-icon="lock">lock</span>
+<span>QUANTUM LOCK</span>
+</button>
+<!-- Trailing Action Icons -->
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high/60 rounded transition-all" title="Quantum Hub Nodes">
+<span class="material-symbols-outlined text-[20px]" data-icon="hub">hub</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high/60 rounded transition-all" title="Sensors Grid">
+<span class="material-symbols-outlined text-[20px]" data-icon="sensors">sensors</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high/60 rounded transition-all" title="Avionics Tuning">
+<span class="material-symbols-outlined text-[20px]" data-icon="tune">tune</span>
+</button>
+</div>
+<!-- Profile Avatar Badge -->
+<div class="flex items-center gap-space-sm pl-space-xs border-l border-outline-variant/30">
+<div class="relative w-8 h-8 rounded border border-primary-container/50 overflow-hidden bg-surface-container-highest">
+<img alt="Flight operations commander profile avatar" class="w-full h-full object-cover" data-alt="Futuristic cybernetic flight operations commander portrait in dark avionics cockpit uniform, neon cyan reflections on glasses, atmospheric telemetry HUD overlays in the deep cosmic background, photorealistic aerospace render." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuwnBGLXqyoz0XidzCQFeNC2pzfvmJRzAhKhJB-dFWIIrI9NH17NGznjKP56j_9agFIci7wouocgmvqVx0YMjZzLeYGoWUcAO1vO_mlpNoY308DhkwNOxw43KITfhrQdRG5t5qUscka6AV0bV7F38wj_ARXYEjPgyqlmwW0XFJUlUeyxanhS99Rivaep6RwEOYTeLXEveF0996ZNLab69id2VNzh96IA1djLIYPbPo630YpCQqjP0"/>
+</div>
+<div class="hidden 2xl:flex flex-col text-left">
+<span class="text-label-mono font-label-mono text-[11px] text-on-surface font-semibold leading-tight">CDR. V. SOREN</span>
+<span class="text-[9px] font-label-mono text-primary-container tracking-wider">SECTOR 07-LEAD</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CANVAS ==================== -->
+<div class="flex w-full min-h-[calc(100vh-65px)]">
+<!-- ==================== 2. SHARED COMPONENT: SideNavBar ==================== -->
+<aside class="hidden lg:flex w-64 shrink-0 flex-col justify-between p-space-md border-r border-primary-container/20 bg-[#050d25]/85 backdrop-blur-2xl shadow-[0_0_32px_rgba(0,0,0,0.6)] z-40">
+<!-- Top HUD Crest & Header -->
+<div>
+<div class="flex items-center gap-space-sm p-space-sm rounded bg-[#050d25]/90 border border-primary-container/30 mb-space-lg shadow-[0_0_15px_rgba(0,240,255,0.08)]">
+<div class="w-10 h-10 rounded border border-primary-container/40 flex items-center justify-center bg-primary-container/5 text-primary-container shadow-[0_0_12px_rgba(0,240,255,0.2)]">
+<span class="material-symbols-outlined text-[24px]" data-icon="shield">shield</span>
+</div>
+<div>
+<h2 class="text-title-sm font-title-sm text-on-surface leading-tight">SECTOR 07-HUD</h2>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-label-mono font-label-mono text-[10px] text-primary-container tracking-wider">STATUS: NOMINAL</span>
+</div>
+</div>
+</div>
+<!-- Rail Navigation List -->
+<nav class="space-y-space-xs">
+<!-- Active Nav Item -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-highest/80 text-primary-container border-l-2 border-primary-container rounded transition-all active:translate-x-0.5" href="#radar">
+<span class="material-symbols-outlined text-[18px]" data-icon="videocam">videocam</span>
+<span class="text-body-sm font-body-sm font-semibold tracking-wide">Flight Cam Matrix</span>
+</a>
+<!-- Inactive Nav Items -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container/40 rounded transition-all active:translate-x-0.5" href="#vectors">
+<span class="material-symbols-outlined text-[18px]" data-icon="alt_route">alt_route</span>
+<span class="text-body-sm font-body-sm">Trajectories</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container/40 rounded transition-all active:translate-x-0.5" href="#missions">
+<span class="material-symbols-outlined text-[18px]" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-body-sm font-body-sm">Active Missions</span>
+<span class="ml-auto px-1.5 py-0.2 bg-primary-container/10 border border-primary-container/30 text-primary-container text-[9px] font-label-mono rounded">14.8K</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container/40 rounded transition-all active:translate-x-0.5" href="#compute">
+<span class="material-symbols-outlined text-[18px]" data-icon="memory">memory</span>
+<span class="text-body-sm font-body-sm">Compute Nodes</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container/40 rounded transition-all active:translate-x-0.5" href="#avionics">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings_input_component">settings_input_component</span>
+<span class="text-body-sm font-body-sm">System Avionics</span>
+</a>
+</nav>
+<!-- CTA Trigger in Sidebar -->
+<div class="mt-space-lg pt-space-md border-t border-outline-variant/20">
+<button class="w-full py-2.5 px-space-md bg-gradient-to-r from-primary-container to-[#00a6ff] text-surface-container-lowest font-headline-md text-title-sm font-bold rounded flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="gps_fixed">gps_fixed</span>
+<span>LOCK VECTOR</span>
+</button>
+</div>
+<!-- Telemetry Gauges Micro Box -->
+<div class="mt-space-lg p-space-sm rounded bg-[#050d25]/75 border border-primary-container/20 space-y-2">
+<div class="flex justify-between items-center text-label-mono font-label-mono text-[10px]">
+<span class="text-outline">DECOHERENCE LATENCY</span>
+<span class="text-primary-container">0.04 ms</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-1/12 shadow-[0_0_6px_#00f0ff]"></div>
+</div>
+<div class="flex justify-between items-center text-label-mono font-label-mono text-[10px]">
+<span class="text-outline">ENTANGLEMENT FLUX</span>
+<span class="text-secondary">99.94%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-11/12 shadow-[0_0_6px_#ffb86b]"></div>
+</div>
+</div>
+</div>
+<!-- Sidebar Footers -->
+<div class="pt-space-md border-t border-outline-variant/20 space-y-1">
+<a class="flex items-center gap-space-sm px-space-md py-1.5 text-on-surface-variant hover:text-primary rounded text-body-sm font-body-sm transition-all" href="#diagnostics">
+<span class="material-symbols-outlined text-[16px]" data-icon="terminal">terminal</span>
+<span>Diagnostics</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-1.5 text-on-surface-variant hover:text-primary rounded text-body-sm font-body-sm transition-all" href="#terminal">
+<span class="material-symbols-outlined text-[16px]" data-icon="power_settings_new">power_settings_new</span>
+<span>Terminal Link</span>
+</a>
+<div class="text-center pt-2">
+<span class="text-[9px] font-label-mono text-outline">SECURE ORBITAL LINK #094</span>
+</div>
+</div>
+</aside>
+<!-- ==================== CENTER OPERATIONAL WORKSPACE ==================== -->
+<main class="flex-1 p-space-md xl:p-space-lg max-w-[1720px] mx-auto w-full space-y-space-lg overflow-y-auto">
+<!-- ==================== SECTION 2: HERO QUANTUM FLIGHT LOOKUP CONSOLE ==================== -->
+<section class="relative rounded-lg p-space-lg bg-[#050d25]/80 backdrop-blur-2xl border border-primary-container/30 shadow-[0_0_30px_rgba(0,240,255,0.08)] overflow-hidden">
+<!-- Corner Avionics HUD Ticks -->
+<div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary-container"></div>
+<div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary-container"></div>
+<div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary-container"></div>
+<div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary-container"></div>
+<!-- Section Top Info Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-md border-b border-primary-container/20">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container/15 text-primary-container border border-primary-container/40 shadow-[0_0_8px_rgba(0,240,255,0.2)]">
+              ORBITAL FLIGHT VECTOR CONSOLE
+            </span>
+<span class="text-body-sm text-outline font-label-mono">ALGORITHM: SHOR-BELLMAN OPTIMAL AIRWAY</span>
+</div>
+<div class="flex items-center gap-space-md text-label-mono font-label-mono text-[11px] text-on-surface-variant">
+<span>ACTIVE VECTORS: <span class="text-primary-container font-bold">14,892 AIRCRAFT</span></span>
+<span class="text-outline">|</span>
+<span>Q-DECOHERENCE: <span class="text-secondary font-bold">0.04 MS</span></span>
+</div>
+</div>
+<!-- Flight Filter Category Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto py-space-sm mt-space-sm no-scrollbar">
+<button class="px-space-md py-1.5 rounded-full text-label-mono font-label-mono text-[11px] bg-primary-container text-surface-container-lowest font-bold shadow-[0_0_12px_rgba(0,240,255,0.4)] whitespace-nowrap">
+            All Trajectories (14.8k)
+          </button>
+<button class="px-space-md py-1.5 rounded-full text-label-mono font-label-mono text-[11px] bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface border border-outline-variant/30 hover:border-primary-container/40 transition-all whitespace-nowrap">
+            Commercial Trans-Oceanic
+          </button>
+<button class="px-space-md py-1.5 rounded-full text-label-mono font-label-mono text-[11px] bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface border border-outline-variant/30 hover:border-primary-container/40 transition-all whitespace-nowrap">
+            Private Hyperjets
+          </button>
+<button class="px-space-md py-1.5 rounded-full text-label-mono font-label-mono text-[11px] bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface border border-outline-variant/30 hover:border-primary-container/40 transition-all whitespace-nowrap">
+            Cargo Hyper-Loops
+          </button>
+<button class="px-space-md py-1.5 rounded-full text-label-mono font-label-mono text-[11px] bg-surface-container-high/60 text-on-surface-variant hover:text-on-surface border border-outline-variant/30 hover:border-primary-container/40 transition-all whitespace-nowrap">
+            Suborbital Shuttles
+          </button>
+</div>
+<!-- Dual Hub Route Selector & Input Cluster -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md mt-space-md items-center">
+<!-- Origin Hub -->
+<div class="lg:col-span-3 p-space-sm bg-[#050d25]/90 rounded border border-primary-container/30 hover:border-primary-container/60 transition-all">
+<div class="flex items-center justify-between text-label-mono font-label-mono text-[10px] text-outline">
+<span>ORIGIN AIRPORT / HUB</span>
+<span class="text-primary-container">ICAO: KJFK</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="material-symbols-outlined text-primary-container text-[22px]" data-icon="flight_takeoff">flight_takeoff</span>
+<div>
+<div class="text-headline-md font-headline-md font-bold text-on-surface leading-tight">JFK <span class="text-body-sm font-normal text-on-surface-variant">· New York</span></div>
+<div class="text-[11px] font-label-mono text-outline truncate">John F. Kennedy Intl · Terminal 4</div>
+</div>
+</div>
+</div>
+<!-- Quantum Path Vector Central Connector -->
+<div class="lg:col-span-1 flex flex-col items-center justify-center">
+<button class="w-10 h-10 rounded-full border border-primary-container/40 bg-surface-container-high/80 text-primary-container flex items-center justify-center hover:scale-110 hover:border-primary-container shadow-[0_0_12px_rgba(0,240,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="sync_alt">sync_alt</span>
+</button>
+<span class="text-[9px] font-label-mono text-outline mt-1 uppercase">ENTANGLED</span>
+</div>
+<!-- Destination Hub -->
+<div class="lg:col-span-3 p-space-sm bg-[#050d25]/90 rounded border border-primary-container/30 hover:border-primary-container/60 transition-all">
+<div class="flex items-center justify-between text-label-mono font-label-mono text-[10px] text-outline">
+<span>DESTINATION AIRPORT / HUB</span>
+<span class="text-secondary">ICAO: RJTT</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="material-symbols-outlined text-secondary text-[22px]" data-icon="flight_land">flight_land</span>
+<div>
+<div class="text-headline-md font-headline-md font-bold text-on-surface leading-tight">HND <span class="text-body-sm font-normal text-on-surface-variant">· Tokyo</span></div>
+<div class="text-[11px] font-label-mono text-outline truncate">Tokyo Haneda Intl · Gate 112</div>
+</div>
+</div>
+</div>
+<!-- Parameters: Date / Class / Passengers -->
+<div class="lg:col-span-3 grid grid-cols-2 gap-space-xs">
+<!-- Date Picker Card -->
+<div class="p-space-sm bg-[#050d25]/90 rounded border border-outline-variant/30">
+<span class="text-[10px] font-label-mono text-outline block">TRAJECTORY DATE</span>
+<div class="flex items-center gap-1 mt-1 text-on-surface font-label-mono text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="calendar_today">calendar_today</span>
+<span class="font-semibold">OCT 24, 2025</span>
+</div>
+</div>
+<!-- Class Selector Card -->
+<div class="p-space-sm bg-[#050d25]/90 rounded border border-outline-variant/30">
+<span class="text-[10px] font-label-mono text-outline block">FLIGHT CLASS</span>
+<div class="flex items-center gap-1 mt-1 text-on-surface font-label-mono text-[12px] truncate">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container" data-icon="speed">speed</span>
+<span class="font-semibold truncate">Hyper-Cruiser</span>
+</div>
+</div>
+</div>
+<!-- Hyper-Luminescent CTA Action Button -->
+<div class="lg:col-span-2 flex flex-col justify-center">
+<button class="w-full py-3.5 px-space-md rounded bg-primary-container text-surface-container-lowest font-headline-md text-title-sm font-bold flex items-center justify-center gap-2 hover:shadow-[0_0_28px_rgba(0,240,255,0.7)] transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="travel_explore">travel_explore</span>
+<span class="tracking-wide">EXECUTE LOOKUP</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ==================== SECTION 3: FLIGHT CAM MATRIX & MULTI-VIEW TELEMETRY VIEWPORT ==================== -->
+<section class="space-y-space-md" id="radar">
+<!-- Flight Cam Matrix Header Bar & Bezel Frame Modes -->
+<div class="flex flex-wrap items-center justify-between gap-3 p-space-sm rounded-lg bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/30">
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center justify-center w-8 h-8 rounded border border-primary-container/50 bg-primary-container/10">
+<span class="material-symbols-outlined text-primary-container text-[20px] animate-pulse" data-icon="videocam">videocam</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-title-sm font-title-sm font-bold text-on-surface uppercase tracking-wider">FLIGHT CAM MATRIX · MULTI-ANGLE TELEMETRY</h3>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-red-500/20 text-red-400 border border-red-500/40 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping"></span>
+          LIVE 4K STREAM
+        </span>
+</div>
+<p class="text-[11px] font-label-mono text-outline">AIRCRAFT QA-709 · HIGH STRATOSPHERE FL390 · PACIFIC CORRIDOR</p>
+</div>
+</div>
+<!-- Camera Tabs (5 Angle Switcher) -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+<button class="cam-tab-btn active px-3 py-1.5 rounded text-[11px] font-label-mono font-semibold transition-all flex items-center gap-1.5 bg-primary-container text-surface-container-lowest shadow-[0_0_12px_rgba(0,240,255,0.4)]" data-view="wing" onclick="switchFlightCam('wing', this)">
+<span class="material-symbols-outlined text-[15px]">flight_class</span>
+<span>Seat 14A · Wing &amp; Jet Engine</span>
+</button>
+<button class="cam-tab-btn px-3 py-1.5 rounded text-[11px] font-label-mono font-medium transition-all flex items-center gap-1.5 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-outline-variant/30" data-view="cockpit" onclick="switchFlightCam('cockpit', this)">
+<span class="material-symbols-outlined text-[15px]">view_in_ar</span>
+<span>Cockpit Flight Deck HUD</span>
+</button>
+<button class="cam-tab-btn px-3 py-1.5 rounded text-[11px] font-label-mono font-medium transition-all flex items-center gap-1.5 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-outline-variant/30" data-view="nose" onclick="switchFlightCam('nose', this)">
+<span class="material-symbols-outlined text-[15px]">air</span>
+<span>Forward Nose Slipstream</span>
+</button>
+<button class="cam-tab-btn px-3 py-1.5 rounded text-[11px] font-label-mono font-medium transition-all flex items-center gap-1.5 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-outline-variant/30" data-view="lidar" onclick="switchFlightCam('lidar', this)">
+<span class="material-symbols-outlined text-[15px]">grid_4x4</span>
+<span>Belly Quantum LIDAR</span>
+</button>
+<button class="cam-tab-btn px-3 py-1.5 rounded text-[11px] font-label-mono font-medium transition-all flex items-center gap-1.5 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-outline-variant/30" data-view="orbit" onclick="switchFlightCam('orbit', this)">
+<span class="material-symbols-outlined text-[15px]">public</span>
+<span>3D Tactical Orbit</span>
+</button>
+</div>
+<!-- Bezel Mode Toggle: Cockpit Glass vs Oval Cabin Window -->
+<div class="flex items-center gap-1 bg-[#050d25] p-1 rounded border border-primary-container/30">
+<button class="px-2.5 py-1 rounded text-[10px] font-label-mono text-primary-container bg-primary-container/15 border border-primary-container/40 font-bold transition-all" id="bezelHudBtn" onclick="setWindowBezelMode('hud')">
+      HUD GLASS
+    </button>
+<button class="px-2.5 py-1 rounded text-[10px] font-label-mono text-outline hover:text-on-surface transition-all" id="bezelOvalBtn" onclick="setWindowBezelMode('oval')">
+      CABIN OVAL BEZEL
+    </button>
+</div>
+</div>
+<!-- Camera Viewport & Telemetry Dual Panel Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Multi-View Camera Stage (7 Columns) -->
+<div class="lg:col-span-7 rounded-lg p-space-md bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/30 shadow-[0_0_30px_rgba(0,240,255,0.08)] relative overflow-hidden flex flex-col justify-between min-h-[500px]" id="camera-feed-container">
+<!-- Tactical Corner Brackets -->
+<div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary-container pointer-events-none z-20"></div>
+<div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary-container pointer-events-none z-20"></div>
+<div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary-container pointer-events-none z-20"></div>
+<div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary-container pointer-events-none z-20"></div>
+<!-- Inner Dynamic View Area -->
+<div class="absolute inset-0 z-0 overflow-hidden transition-all duration-500" id="cam-viewport-screen">
+<!-- Live Render Canvas for Selected Cam Angles -->
+<canvas class="w-full h-full object-cover block" id="primaryFlightCamCanvas"></canvas>
+<!-- Interactive 3D WebGL Holographic Globe Scene (Preserved for 3D Tactical Orbit Tab) -->
+<div class="absolute inset-0 w-full h-full hidden" id="threejs-globe-wrapper">
+
+</div>
+<!-- Cabin Oval Window Bezel Overlay (Toggled via Window Mode Button) -->
+<div class="absolute inset-4 pointer-events-none hidden flex-col items-center justify-center transition-all" id="cabin-oval-bezel-frame">
+<div class="w-full max-w-[580px] h-[92%] oval-window-bezel border-4 border-cyan-500/20 relative overflow-hidden">
+<!-- Window Reflection Glare -->
+<div class="absolute inset-0 bg-gradient-to-tr from-transparent via-cyan-400/5 to-white/10 pointer-events-none"></div>
+<!-- Frost / Moisture condensation perimeter -->
+<div class="absolute inset-0 rounded-[90px] border border-cyan-300/30 opacity-70 pointer-events-none"></div>
+</div>
+</div>
+</div>
+<!-- Radar & Camera Top HUD Overlay -->
+<div class="relative z-10 pointer-events-none flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-space-sm pointer-events-auto bg-[#050d25]/80 backdrop-blur-md px-3 py-1 rounded border border-primary-container/30">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-ping"></span>
+<h4 class="text-[12px] font-label-mono font-bold text-on-surface uppercase tracking-wider" id="activeCamTitle">CAM 01: SEAT 14A · WING &amp; JET ENGINE STREAM</h4>
+</div>
+<!-- Interactive HUD Control Bar -->
+<div class="flex items-center gap-2 pointer-events-auto">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest bg-cyan-400/20 text-cyan-300 border border-cyan-400/60 animate-pulse" id="tracking-status-badge">TARGET LOCKED: QA-709 · STREAM ACTIVE</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-primary-container text-surface-container-lowest border border-primary-container shadow-[0_0_12px_rgba(0,240,255,0.45)] hover:brightness-110 active:scale-95 transition-all" onclick="window.setQA709Tracking(true)">TRACK QA-709</button>
+<button class="px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider bg-surface-container-high/80 text-slate-300 border border-outline-variant/40 hover:border-slate-300 hover:text-on-surface active:scale-95 transition-all" onclick="window.setQA709Tracking(false)">RESET ORBIT</button>
+</div>
+</div>
+</div>
+<!-- Center Telemetry Reticle (Shows when on Cockpit / Nose view) -->
+<div class="relative z-10 pointer-events-none my-space-md flex flex-col items-center justify-between flex-1">
+<div class="self-center bg-[#050d25]/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-primary-container/40 shadow-[0_0_16px_rgba(0,240,255,0.2)] flex items-center gap-2 pointer-events-auto">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f0ff]"></span>
+<span class="text-[10px] font-label-mono text-primary-container font-semibold tracking-wider uppercase" id="camStreamStatusLine">PACIFIC HIGH ALTITUDE CORRIDOR · HORIZON TILT: +0.4° · MACH 0.88</span>
+</div>
+<!-- Floating Aircraft Telemetry Tag -->
+<div class="self-end mr-2 bg-[#050d25]/90 backdrop-blur-md p-2 rounded border border-primary-container/50 shadow-[0_0_16px_rgba(0,240,255,0.3)] pointer-events-auto cursor-pointer hover:border-primary-container hover:scale-105 transition-all" onclick="window.setQA709Tracking(true)" title="Click to focus camera on QA-709">
+<div class="flex items-center gap-1 text-[10px] font-label-mono text-primary-container font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span>QA-709 · B789</span>
+</div>
+<div class="text-[9px] font-label-mono text-outline">MACH 0.88 · FL390 · ENTANGLED</div>
+</div>
+</div>
+<!-- Camera Footer Controls & Coordinate Readouts -->
+<div class="relative z-10 pointer-events-none flex items-center justify-between pt-space-sm border-t border-primary-container/20 text-label-mono font-label-mono text-[10px] bg-[#050d25]/75 -mx-space-md -mb-space-md px-space-md pb-space-sm">
+<div class="flex items-center gap-space-md text-outline">
+<span>LAT: 52° 14' 09" N</span>
+<span>LONG: 168° 22' 41" W</span>
+<span class="text-primary-container">HEADING: 284° WNW</span>
+<span class="hidden sm:inline text-secondary">AIR TEMP: -56.4°C</span>
+</div>
+<div class="flex items-center gap-1 text-primary-container pointer-events-auto">
+<button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container border border-outline-variant/40" onclick="switchFlightCam('cockpit')">COCKPIT</button>
+<button class="px-2 py-0.5 rounded bg-primary-container/20 border border-primary-container text-primary-container font-bold shadow-[0_0_10px_rgba(0,240,255,0.3)] hover:bg-primary-container/30" onclick="switchFlightCam('orbit')">3D GLOBE</button>
+</div>
+</div>
+</div>
+<!-- Featured Flight Telemetry Card (5 Columns) -->
+<div class="lg:col-span-5 rounded-lg p-space-md bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/30 shadow-[0_0_24px_rgba(0,240,255,0.06)] flex flex-col justify-between">
+<div>
+<!-- Header with Flight Tag & Status Chip -->
+<div class="flex items-center justify-between pb-space-sm border-b border-primary-container/20">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">QA-709</span>
+<button class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container/15 text-primary-container border border-primary-container/40 hover:bg-primary-container hover:text-surface-container-lowest transition-all cursor-pointer shadow-[0_0_8px_rgba(0,240,255,0.2)]" onclick="window.setQA709Tracking(true)" title="Click to track camera on QA-709">QUANTUM LOCK</button>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Boeing 787-9 Dreamliner · Quantum Trans-Pacific</span>
+</div>
+<div class="text-right">
+<span class="text-label-mono font-label-mono text-[10px] text-outline block">ESTIMATED TOUCHDOWN</span>
+<span class="text-title-sm font-title-sm font-bold text-primary-container">18:24 JST</span>
+<span class="text-[10px] font-label-mono text-[#00f0ff] block">(-14 min early)</span>
+</div>
+</div>
+<!-- Route Summary Origin -> Dest -->
+<div class="flex items-center justify-between py-space-md">
+<div class="text-left">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">JFK</span>
+<span class="text-[11px] font-label-mono text-outline block">New York · DEP 11:30</span>
+<span class="text-[10px] font-label-mono text-primary-container">GATE B34 · ON TIME</span>
+</div>
+<div class="flex-1 px-space-md flex flex-col items-center">
+<span class="text-label-mono font-label-mono text-[10px] text-outline mb-1">ELAPSED: 08h 14m</span>
+<div class="w-full relative flex items-center">
+<div class="w-full h-1 bg-surface-container-highest rounded-full">
+<div class="h-full bg-primary-container w-3/4 rounded-full shadow-[0_0_8px_#00f0ff]"></div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-primary-container absolute left-3/4 -translate-x-1/2 -top-1.5" data-icon="flight">flight</span>
+</div>
+<span class="text-[10px] font-label-mono text-outline mt-1">REMAINING: 2,180 NM</span>
+</div>
+<div class="text-right">
+<span class="text-headline-md font-headline-md font-bold text-secondary">HND</span>
+<span class="text-[11px] font-label-mono text-outline block">Tokyo · ARR 18:24</span>
+<span class="text-[10px] font-label-mono text-secondary">GATE 112 · TAXI READY</span>
+</div>
+</div>
+<!-- Avionics Telemetry Metric Tiles -->
+<div class="grid grid-cols-3 gap-space-xs my-space-sm">
+<div class="p-space-sm bg-[#050d25]/90 rounded border border-primary-container/20">
+<span class="text-[9px] font-label-mono text-outline block">GROUND SPEED</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-primary-container font-bold">M 0.88</span>
+<span class="text-[10px] font-label-mono text-outline-variant block">982 km/h</span>
+</div>
+<div class="p-space-sm bg-[#050d25]/90 rounded border border-primary-container/20">
+<span class="text-[9px] font-label-mono text-outline block">PRESSURE ALT</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-on-surface font-bold">FL390</span>
+<span class="text-[10px] font-label-mono text-outline-variant block">39,000 ft MSL</span>
+</div>
+<div class="p-space-sm bg-[#050d25]/90 rounded border border-primary-container/20">
+<span class="text-[9px] font-label-mono text-outline block">JETSTREAM WIND</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-secondary font-bold">+84 kts</span>
+<span class="text-[10px] font-label-mono text-outline-variant block">Tailwind Vector</span>
+</div>
+</div>
+<!-- Sub-Metrics & Systems Diagnostics -->
+<div class="space-y-1.5 pt-space-xs text-label-mono font-label-mono text-[11px]">
+<div class="flex justify-between p-1.5 rounded bg-[#050d25]/60 border border-outline-variant/20">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container" data-icon="air">air</span>
+                  Atmospheric Turbulence:
+                </span>
+<span class="text-primary-container font-semibold">NOMINAL · SMOOTH AIRSPACE</span>
+</div>
+<div class="flex justify-between p-1.5 rounded bg-[#050d25]/60 border border-outline-variant/20">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary-container" data-icon="hub">hub</span>
+                  Quantum Entanglement Relay:
+                </span>
+<span class="text-tertiary-container font-semibold">SYNCED · PACIFIC BEACON-9</span>
+</div>
+<div class="flex justify-between p-1.5 rounded bg-[#050d25]/60 border border-outline-variant/20">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="videocam">videocam</span>
+                  Optical Window Feeds:
+                </span>
+<span class="text-secondary font-semibold">4 CAMERAS ENCRYPTED · 60 FPS</span>
+</div>
+</div>
+</div>
+<!-- Bottom Action Buttons for Featured Flight -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-md border-t border-primary-container/20 mt-space-sm">
+<button class="py-2 rounded bg-primary-container/20 hover:bg-primary-container/30 border border-primary-container/60 text-primary-container text-body-sm font-semibold flex items-center justify-center gap-1.5 transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)]" onclick="switchFlightCam('wing')">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="flight_class">flight_class</span>
+<span>WINDOW SEAT CAM</span>
+</button>
+<button class="py-2 rounded bg-primary-container/15 hover:bg-primary-container/25 border border-primary-container/50 text-primary-container text-body-sm font-semibold flex items-center justify-center gap-1.5 transition-all" onclick="switchFlightCam('cockpit')">
+<span class="material-symbols-outlined text-[16px]" data-icon="videocam">videocam</span>
+<span>COCKPIT HUD CAM</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== SECTION 4: LIVE FLIGHT SCHEDULE & REAL-TIME TRACKING GRID WITH MINI CAM PIPS ==================== -->
+<section class="space-y-space-md" id="vectors">
+<!-- Schedule Section Title Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px]" data-icon="calendar_month">calendar_month</span>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface leading-tight">Live Flight Schedule &amp; Orbital Vectors</h3>
+<p class="text-body-sm font-body-sm text-outline">Real-time trans-atmospheric and hyper-cruiser airway departures with onboard live window feeds</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center border border-primary-container/30 rounded p-0.5 bg-[#050d25]">
+<button class="px-space-sm py-1 rounded bg-surface-container-high text-primary-container text-label-mono font-label-mono text-[11px] font-bold">ALL (4)</button>
+<button class="px-space-sm py-1 text-outline hover:text-on-surface text-label-mono font-label-mono text-[11px]">EN ROUTE (3)</button>
+<button class="px-space-sm py-1 text-outline hover:text-on-surface text-label-mono font-label-mono text-[11px]">BOARDING (1)</button>
+</div>
+<button class="p-1.5 rounded border border-primary-container/30 text-outline hover:text-primary-container bg-[#050d25]">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- 4 Frosted Glass Bento Cards Grid with Live Mini Cam PIPs -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Card 1: QA-892 London to Singapore -->
+<div class="p-space-md rounded-lg bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/25 hover:border-primary-container/60 transition-all group relative overflow-hidden flex flex-col justify-between cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.4)]" onclick="switchFlightCam('nose')">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-container/5 rounded-bl-full pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container/10 border border-primary-container/30 text-primary-container font-semibold">
+                  CLIMBING · LOCKED
+                </span>
+<span class="text-label-mono font-label-mono text-[11px] text-outline">GATE B22</span>
+</div>
+<div class="flex items-center justify-between my-space-xs">
+<div>
+<h4 class="text-title-sm font-title-sm font-bold text-on-surface group-hover:text-primary-container transition-colors">QA-892</h4>
+<span class="text-[10px] font-label-mono text-outline">Airbus A350-1000</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label-mono text-outline block">SPEED</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-primary-container font-bold">940 km/h</span>
+</div>
+</div>
+<!-- Mini Live Camera PIP -->
+<div class="my-2 rounded border border-primary-container/30 overflow-hidden relative h-20 bg-slate-900 group-hover:border-primary transition-all">
+<canvas class="w-full h-full object-cover pip-canvas" data-pip-style="clouds-dawn"></canvas>
+<div class="absolute top-1 left-1.5 px-1 py-0.2 rounded bg-black/70 text-[9px] font-mono text-cyan-300 flex items-center gap-1 border border-cyan-400/30">
+<span class="w-1 h-1 rounded-full bg-cyan-400 animate-ping"></span>
+    LIVE NOSE CAM
+  </div>
+<div class="absolute bottom-1 right-1.5 text-[9px] font-mono text-white/70">FL310</div>
+</div>
+<div class="flex items-center justify-between py-space-sm border-y border-outline-variant/20 my-space-xs">
+<div>
+<span class="text-title-sm font-title-sm font-bold text-on-surface">LHR</span>
+<span class="text-[10px] font-label-mono text-outline block">London 13:40</span>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="text-[9px] font-label-mono text-outline">12h 50m</span>
+<div class="w-full h-0.5 bg-outline-variant/40 relative">
+<div class="w-1/4 h-full bg-primary-container"></div>
+</div>
+<span class="text-[9px] font-label-mono text-primary-container">FL310</span>
+</div>
+<div class="text-right">
+<span class="text-title-sm font-title-sm font-bold text-on-surface">SIN</span>
+<span class="text-[10px] font-label-mono text-outline block">Singapore 07:30</span>
+</div>
+</div>
+<!-- Sparkline SVG for Altitude Profile -->
+<div class="mt-space-xs">
+<div class="flex justify-between text-[9px] font-label-mono text-outline mb-1">
+<span>ALTITUDE CLIMB PROFILE</span>
+<span class="text-primary-container">31,000 FT</span>
+</div>
+<svg class="w-full h-6" fill="none" viewbox="0 0 200 32">
+<path d="M 0 30 Q 40 28, 70 18 T 140 10 L 200 10" stroke="#00f0ff" stroke-width="1.5"></path>
+<path d="M 0 30 Q 40 28, 70 18 T 140 10 L 200 10 L 200 32 L 0 32 Z" fill="rgba(0, 240, 255, 0.08)"></path>
+</svg>
+</div>
+</div>
+<!-- Card Bottom Trigger -->
+<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-space-sm">
+<span class="text-[10px] font-label-mono text-outline">TURBULENCE: NONE</span>
+<a class="text-body-sm text-primary-container hover:underline flex items-center gap-1 font-label-mono text-[11px]" href="#radar">
+<span>Open Cam</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 2: QA-304 San Francisco to Paris (Suborbital View) -->
+<div class="p-space-md rounded-lg bg-[#050d25]/85 backdrop-blur-2xl border border-secondary/30 hover:border-secondary/60 transition-all group relative overflow-hidden flex flex-col justify-between cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.4)]" onclick="switchFlightCam('cockpit')">
+<div class="absolute top-0 right-0 w-20 h-20 bg-secondary/5 rounded-bl-full pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-secondary/15 border border-secondary/30 text-secondary font-semibold">
+                  SUBORBITAL CRUISING
+                </span>
+<span class="text-label-mono font-label-mono text-[11px] text-outline">GATE 14A</span>
+</div>
+<div class="flex items-center justify-between my-space-xs">
+<div>
+<h4 class="text-title-sm font-title-sm font-bold text-on-surface group-hover:text-primary-container transition-colors">QA-304</h4>
+<span class="text-[10px] font-label-mono text-outline">X-Quantum Cruiser</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label-mono text-outline block">SPEED</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-secondary font-bold">M 1.62</span>
+</div>
+</div>
+<!-- Mini Live Camera PIP -->
+<div class="my-2 rounded border border-secondary/40 overflow-hidden relative h-20 bg-slate-900 group-hover:border-secondary transition-all">
+<canvas class="w-full h-full object-cover pip-canvas" data-pip-style="aurora-orbit"></canvas>
+<div class="absolute top-1 left-1.5 px-1 py-0.2 rounded bg-black/70 text-[9px] font-mono text-amber-300 flex items-center gap-1 border border-amber-400/30">
+<span class="w-1 h-1 rounded-full bg-amber-400 animate-ping"></span>
+    STRATO CAM
+  </div>
+<div class="absolute bottom-1 right-1.5 text-[9px] font-mono text-white/70">FL520 · AURORA</div>
+</div>
+<div class="flex items-center justify-between py-space-sm border-y border-outline-variant/20 my-space-xs">
+<div>
+<span class="text-title-sm font-title-sm font-bold text-on-surface">SFO</span>
+<span class="text-[10px] font-label-mono text-outline block">San Francisco</span>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="text-[9px] font-label-mono text-outline">05h 22m</span>
+<div class="w-full h-0.5 bg-outline-variant/40 relative">
+<div class="w-3/5 h-full bg-secondary"></div>
+</div>
+<span class="text-[9px] font-label-mono text-secondary">FL520</span>
+</div>
+<div class="text-right">
+<span class="text-title-sm font-title-sm font-bold text-on-surface">CDG</span>
+<span class="text-[10px] font-label-mono text-outline block">Paris 21:05</span>
+</div>
+</div>
+<!-- Sparkline SVG for Suborbital Profile -->
+<div class="mt-space-xs">
+<div class="flex justify-between text-[9px] font-label-mono text-outline mb-1">
+<span>ORBITAL ARC TRAJECTORY</span>
+<span class="text-secondary">52,000 FT</span>
+</div>
+<svg class="w-full h-6" fill="none" viewbox="0 0 200 32">
+<path d="M 0 28 Q 60 4, 100 4 T 200 28" stroke="#ffb86b" stroke-width="1.5"></path>
+<path d="M 0 28 Q 60 4, 100 4 T 200 28 L 200 32 L 0 32 Z" fill="rgba(255, 184, 107, 0.08)"></path>
+</svg>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-space-sm">
+<span class="text-[10px] font-label-mono text-outline">SOLAR FLUX: NOMINAL</span>
+<a class="text-body-sm text-secondary hover:underline flex items-center gap-1 font-label-mono text-[11px]" href="#radar">
+<span>Open Cam</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 3: AF-441 Tokyo to Los Angeles -->
+<div class="p-space-md rounded-lg bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/25 hover:border-primary-container/60 transition-all group relative overflow-hidden flex flex-col justify-between cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.4)]" onclick="switchFlightCam('lidar')">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-container/5 rounded-bl-full pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container/10 border border-primary-container/30 text-primary-container font-semibold">
+                  ARRIVING SOON
+                </span>
+<span class="text-label-mono font-label-mono text-[11px] text-outline">GATE 58</span>
+</div>
+<div class="flex items-center justify-between my-space-xs">
+<div>
+<h4 class="text-title-sm font-title-sm font-bold text-on-surface group-hover:text-primary-container transition-colors">AF-441</h4>
+<span class="text-[10px] font-label-mono text-outline">Boeing 777-300ER</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label-mono text-outline block">SPEED</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-primary-container font-bold">890 km/h</span>
+</div>
+</div>
+<!-- Mini Live Camera PIP -->
+<div class="my-2 rounded border border-primary-container/30 overflow-hidden relative h-20 bg-slate-900 group-hover:border-primary transition-all">
+<canvas class="w-full h-full object-cover pip-canvas" data-pip-style="coastline-lidar"></canvas>
+<div class="absolute top-1 left-1.5 px-1 py-0.2 rounded bg-black/70 text-[9px] font-mono text-cyan-300 flex items-center gap-1 border border-cyan-400/30">
+<span class="w-1 h-1 rounded-full bg-cyan-400 animate-ping"></span>
+    BELLY SCAN
+  </div>
+<div class="absolute bottom-1 right-1.5 text-[9px] font-mono text-white/70">PACIFIC COASTLINE</div>
+</div>
+<div class="flex items-center justify-between py-space-sm border-y border-outline-variant/20 my-space-xs">
+<div>
+<span class="text-title-sm font-title-sm font-bold text-on-surface">HND</span>
+<span class="text-[10px] font-label-mono text-outline block">Tokyo 17:15</span>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="text-[9px] font-label-mono text-outline">09h 45m</span>
+<div class="w-full h-0.5 bg-outline-variant/40 relative">
+<div class="w-11/12 h-full bg-primary-container"></div>
+</div>
+<span class="text-[9px] font-label-mono text-primary-container">DESCENT</span>
+</div>
+<div class="text-right">
+<span class="text-title-sm font-title-sm font-bold text-on-surface">LAX</span>
+<span class="text-[10px] font-label-mono text-outline block">Los Angeles 10:48</span>
+</div>
+</div>
+<!-- Sparkline SVG for Descent Profile -->
+<div class="mt-space-xs">
+<div class="flex justify-between text-[9px] font-label-mono text-outline mb-1">
+<span>APPROACH DESCENT GLIDESLOPE</span>
+<span class="text-primary-container">FL080</span>
+</div>
+<svg class="w-full h-6" fill="none" viewbox="0 0 200 32">
+<path d="M 0 6 L 120 10 Q 160 14, 200 28" stroke="#00f0ff" stroke-width="1.5"></path>
+<path d="M 0 6 L 120 10 Q 160 14, 200 28 L 200 32 L 0 32 Z" fill="rgba(0, 240, 255, 0.08)"></path>
+</svg>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-space-sm">
+<span class="text-[10px] font-label-mono text-outline">ETA: 22 MINS</span>
+<a class="text-body-sm text-primary-container hover:underline flex items-center gap-1 font-label-mono text-[11px]" href="#radar">
+<span>Open Cam</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Card 4: QA-709 Featured Vector JFK -> HND with Enhanced Live Wing Stream -->
+<div class="p-space-md rounded-lg bg-[#050d25]/95 backdrop-blur-2xl border-2 border-primary-container shadow-[0_0_24px_rgba(0,240,255,0.3)] transition-all group relative overflow-hidden flex flex-col justify-between cursor-pointer ring-1 ring-primary-container/60" onclick="switchFlightCam('wing')">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-container/15 rounded-bl-full pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container text-surface-container-lowest font-bold shadow-[0_0_8px_#00f0ff] animate-pulse">
+                  ACTIVE TARGET · CAM LOCKED
+                </span>
+<span class="text-label-mono font-label-mono text-[11px] text-primary-container font-semibold">GATE B34</span>
+</div>
+<div class="flex items-center justify-between my-space-xs">
+<div>
+<h4 class="text-title-sm font-title-sm font-bold text-primary-container transition-colors">QA-709</h4>
+<span class="text-[10px] font-label-mono text-outline">Boeing 787-9 Dreamliner</span>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label-mono text-outline block">SPEED</span>
+<span class="text-telemetry-value-md font-telemetry-value-md text-primary-container font-bold">M 0.88</span>
+</div>
+</div>
+<!-- Mini Live Camera PIP for QA-709 (Wing View) -->
+<div class="my-2 rounded border border-primary-container overflow-hidden relative h-20 bg-slate-900 shadow-[0_0_12px_rgba(0,240,255,0.3)]">
+<canvas class="w-full h-full object-cover pip-canvas" data-pip-style="wing-engine"></canvas>
+<div class="absolute top-1 left-1.5 px-1 py-0.2 rounded bg-black/80 text-[9px] font-mono text-cyan-300 flex items-center gap-1 border border-cyan-400/50 font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-ping"></span>
+    SEAT 14A WINDOW
+  </div>
+<div class="absolute bottom-1 right-1.5 text-[9px] font-mono text-primary font-bold">FL390 · 60FPS</div>
+</div>
+<div class="flex items-center justify-between py-space-sm border-y border-outline-variant/30 my-space-xs">
+<div>
+<span class="text-title-sm font-title-sm font-bold text-on-surface">JFK</span>
+<span class="text-[10px] font-label-mono text-outline block">New York 11:30</span>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="text-[9px] font-label-mono text-outline">14h 54m</span>
+<div class="w-full h-0.5 bg-outline-variant/40 relative">
+<div class="w-3/4 h-full bg-primary-container shadow-[0_0_6px_#00f0ff]"></div>
+</div>
+<span class="text-[9px] font-label-mono text-primary-container font-bold">FL390</span>
+</div>
+<div class="text-right">
+<span class="text-title-sm font-title-sm font-bold text-secondary">HND</span>
+<span class="text-[10px] font-label-mono text-outline block">Tokyo 18:24</span>
+</div>
+</div>
+<!-- Sparkline SVG for QA-709 Vector -->
+<div class="mt-space-xs">
+<div class="flex justify-between text-[9px] font-label-mono text-outline mb-1">
+<span>GREAT-CIRCLE TRANS-PACIFIC</span>
+<span class="text-primary-container font-bold">39,000 FT</span>
+</div>
+<svg class="w-full h-6" fill="none" viewbox="0 0 200 32">
+<path d="M 0 24 Q 80 4, 150 8 T 200 12" stroke="#00f0ff" stroke-width="2"></path>
+<path d="M 0 24 Q 80 4, 150 8 T 200 12 L 200 32 L 0 32 Z" fill="rgba(0, 240, 255, 0.15)"></path>
+</svg>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm border-t border-outline-variant/30 mt-space-sm">
+<span class="text-[10px] font-label-mono text-primary-container flex items-center gap-1 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+                CLICK TO MAXIMIZE FEED
+              </span>
+<a class="text-body-sm text-primary-container hover:underline flex items-center gap-1 font-label-mono text-[11px] font-bold" href="#radar">
+<span>Primary Feed</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== SECTION 5: QUANTUM BACKEND ENGINE MONITOR & LIVE TICKER ==================== -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg" id="telemetry">
+<!-- Computing Engine Cluster (8 Columns) -->
+<div class="lg:col-span-8 rounded-lg p-space-md bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/25 relative shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+<div class="flex items-center justify-between pb-space-sm border-b border-primary-container/20">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[22px]" data-icon="memory">memory</span>
+<div>
+<h4 class="text-title-sm font-title-sm text-on-surface uppercase tracking-wide">Quantum Airspace Compute Clusters</h4>
+<span class="text-body-sm text-outline font-label-mono text-[11px]">Subatomic Route Optimization &amp; Real-Time Conflict Solver</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="text-label-mono font-label-mono text-[11px] text-primary-container font-bold">ONLINE · 5,120 QUBITS</span>
+</div>
+</div>
+<!-- Compute Node Metrics Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mt-space-md">
+<!-- Node 1 -->
+<div class="p-space-sm rounded bg-[#050d25]/90 border border-primary-container/20">
+<div class="flex items-center justify-between text-label-mono font-label-mono text-[10px] text-outline mb-1">
+<span>NODE ALPHA-9</span>
+<span class="text-primary-container">CORE 84-E</span>
+</div>
+<div class="text-headline-md font-headline-md font-bold text-on-surface">0.04 ms</div>
+<span class="text-[10px] font-label-mono text-outline block">Decoherence Latency</span>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary-container w-1/6"></div>
+</div>
+</div>
+<!-- Node 2 -->
+<div class="p-space-sm rounded bg-[#050d25]/90 border border-primary-container/20">
+<div class="flex items-center justify-between text-label-mono font-label-mono text-[10px] text-outline mb-1">
+<span>TURBULENCE PREDICTOR</span>
+<span class="text-secondary">ACCURACY: 99.8%</span>
+</div>
+<div class="text-headline-md font-headline-md font-bold text-secondary">Zero-Shear</div>
+<span class="text-[10px] font-label-mono text-outline block">Atmospheric Micro-Bursts</span>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-secondary w-5/6"></div>
+</div>
+</div>
+<!-- Node 3 -->
+<div class="p-space-sm rounded bg-[#050d25]/90 border border-primary-container/20">
+<div class="flex items-center justify-between text-label-mono font-label-mono text-[10px] text-outline mb-1">
+<span>SEPARATION ASSURANCE</span>
+<span class="text-tertiary-container">COLLISION: 0.000%</span>
+</div>
+<div class="text-headline-md font-headline-md font-bold text-tertiary-container">100% Free</div>
+<span class="text-[10px] font-label-mono text-outline block">Autonomous Airway Separation</span>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-tertiary-container w-full"></div>
+</div>
+</div>
+</div>
+<!-- Real-Time Console Event Stream Ticker -->
+<div class="mt-space-md p-space-sm rounded bg-[#050d25]/95 border border-primary-container/30 font-label-mono text-[11px] space-y-1">
+<div class="text-[10px] text-outline uppercase tracking-wider mb-1 flex items-center justify-between">
+<span>LIVE TELEMETRY BUS LOGS</span>
+<span class="text-primary-container">AUTOSCROLL ON</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant truncate">
+<span class="text-outline">[14:42:12.802]</span>
+<span class="text-primary-container">BEACON-PACIFIC-09:</span>
+<span>Entangled flight vector QA-709 re-calculated airway via waypoint ANC-V. Fuel optimization +4.2%.</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant truncate">
+<span class="text-outline">[14:42:16.140]</span>
+<span class="text-secondary">SUBORBITAL-SFO:</span>
+<span>Flight QA-304 crossed Mach 1.5 threshold over Hudson Bay corridor. Thermal insulation optimal.</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant truncate">
+<span class="text-outline">[14:42:18.915]</span>
+<span class="text-tertiary-container">IONOSPHERE-RADAR:</span>
+<span>Polar trajectory QA-892 linked to Qubit array 12. Automated de-confliction locked.</span>
+</div>
+</div>
+</div>
+<!-- Global Airspace Health Card (4 Columns) -->
+<div class="lg:col-span-4 rounded-lg p-space-md bg-[#050d25]/85 backdrop-blur-2xl border border-primary-container/25 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+<div>
+<div class="flex items-center justify-between pb-space-sm border-b border-primary-container/20">
+<h4 class="text-title-sm font-title-sm text-on-surface">Airspace Sector Density</h4>
+<span class="text-label-mono font-label-mono text-[10px] text-primary-container">GLOBAL VIEW</span>
+</div>
+<div class="space-y-space-sm mt-space-md">
+<div>
+<div class="flex justify-between text-[11px] font-label-mono text-outline mb-1">
+<span>NORTH ATLANTIC CORRIDOR (NAT-OTS)</span>
+<span class="text-on-surface font-semibold">94% DENSITY</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[94%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] font-label-mono text-outline mb-1">
+<span>PACIFIC HIGHWAY (PACOTS)</span>
+<span class="text-on-surface font-semibold">78% DENSITY</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[78%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] font-label-mono text-outline mb-1">
+<span>TRANS-POLAR ARCTIC VECTOR</span>
+<span class="text-secondary font-semibold">42% DENSITY</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[42%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] font-label-mono text-outline mb-1">
+<span>SUBORBITAL UPPER STRATOSPHERE</span>
+<span class="text-tertiary-container font-semibold">18% DENSITY</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[18%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline-variant/20 mt-space-md">
+<div class="p-space-sm rounded bg-[#050d25] border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-container" data-icon="verified_user">verified_user</span>
+<span class="text-body-sm font-semibold text-on-surface">Avionics Shielding</span>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-mono bg-primary-container/20 text-primary-container font-bold">ACTIVE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Micro Bar -->
+<footer class="py-space-md border-t border-primary-container/20 flex flex-wrap items-center justify-between gap-space-sm text-label-mono font-label-mono text-[11px] text-outline">
+<div class="flex items-center gap-space-md">
+<span>© 2025 SKYTRACKER AERO · QUANTUM AVIONICS DIVISION</span>
+<span>AIRSPACE REGULATION: ICAO / FAA / JCAB COMPLIANT</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="text-primary-container flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            ALL QUANTUM BEACONS &amp; OPTICAL CAMERAS OPERATIONAL
+          </span>
+<span>TERMINAL LATENCY: 1.2MS</span>
+</div>
+</footer>
+</main>
+</div>
+<!-- ==================== INTERACTIVE VIDEO SIMULATION & MULTI-VIEW ENGINE ==================== -->
+<script>
+  // State variables for flight camera feeds and window modes
+  let currentCamMode = 'wing';
+  let isOvalBezelActive = false;
+  let isBackdropActive = true;
+  let animFrameId = null;
+
+  // Camera views meta dictionary
+  const CAM_META = {
+    'wing': {
+      title: 'CAM 01: SEAT 14A · WING & JET ENGINE STREAM',
+      status: 'PACIFIC HIGH ALTITUDE CORRIDOR · HORIZON TILT: +0.4° · MACH 0.88'
+    },
+    'cockpit': {
+      title: 'CAM 02: COCKPIT HEADS-UP FLIGHT DECK (HUD)',
+      status: 'ILS SYNTHETIC VISION LOCK · WAYPOINT ANC-V · AUTO-PILOT LNAV/VNAV'
+    },
+    'nose': {
+      title: 'CAM 03: FORWARD NOSE VECTOR & SLIPSTREAM',
+      status: 'MACH 0.88 SLIPSTREAM · CIRRUS CLOUD BREAKTHROUGH · OAT -56.4°C'
+    },
+    'lidar': {
+      title: 'CAM 04: BELLY QUANTUM LIDAR & TERRAIN TOPOGRAPHY',
+      status: 'BATHYMETRY & ALASKAN ARCHIPELAGO PASS · GROUND RESOLUTION 0.08M'
+    },
+    'orbit': {
+      title: 'TACTICAL RADAR · 3D ORBITAL GLOBE PROJECTION',
+      status: 'THREE.JS QUANTUM GLOBE SWEEP ACTIVE · PACIFIC AIRWAY EN ROUTE'
+    }
+  };
+
+  // Main Canvas & Ambient Canvas references
+  const primaryCanvas = document.getElementById('primaryFlightCamCanvas');
+  const ambientCanvas = document.getElementById('ambientFlightCanvas');
+  const globeWrapper = document.getElementById('threejs-globe-wrapper');
+  const activeCamTitle = document.getElementById('activeCamTitle');
+  const camStreamStatusLine = document.getElementById('camStreamStatusLine');
+  const ovalBezelFrame = document.getElementById('cabin-oval-bezel-frame');
+  const bezelHudBtn = document.getElementById('bezelHudBtn');
+  const bezelOvalBtn = document.getElementById('bezelOvalBtn');
+
+  function resizeAllCanvases() {
+    if (primaryCanvas) {
+      const rect = primaryCanvas.parentElement.getBoundingClientRect();
+      primaryCanvas.width = Math.max(rect.width, 640);
+      primaryCanvas.height = Math.max(rect.height, 460);
+    }
+    if (ambientCanvas) {
+      ambientCanvas.width = window.innerWidth;
+      ambientCanvas.height = window.innerHeight;
+    }
+    document.querySelectorAll('.pip-canvas').forEach(canvas => {
+      canvas.width = 300;
+      canvas.height = 160;
+    });
+  }
+
+  window.addEventListener('resize', resizeAllCanvases);
+
+  // Switch Active Camera Feed Mode
+  function switchFlightCam(mode, buttonElem) {
+    currentCamMode = mode;
+    
+    // Update Tab UI States
+    document.querySelectorAll('.cam-tab-btn').forEach(btn => {
+      btn.className = 'cam-tab-btn px-3 py-1.5 rounded text-[11px] font-label-mono font-medium transition-all flex items-center gap-1.5 bg-surface-container-high/60 text-on-surface-variant hover:text-primary hover:border-primary-container/40 border border-outline-variant/30';
+    });
+    if (buttonElem) {
+      buttonElem.className = 'cam-tab-btn active px-3 py-1.5 rounded text-[11px] font-label-mono font-semibold transition-all flex items-center gap-1.5 bg-primary-container text-surface-container-lowest shadow-[0_0_12px_rgba(0,240,255,0.4)]';
+    } else {
+      const targetBtn = document.querySelector(`.cam-tab-btn[data-view="${mode}"]`);
+      if (targetBtn) {
+        targetBtn.className = 'cam-tab-btn active px-3 py-1.5 rounded text-[11px] font-label-mono font-semibold transition-all flex items-center gap-1.5 bg-primary-container text-surface-container-lowest shadow-[0_0_12px_rgba(0,240,255,0.4)]';
+      }
+    }
+
+    // Toggle 3D WebGL vs Canvas Stream
+    if (mode === 'orbit') {
+      primaryCanvas.classList.add('hidden');
+      globeWrapper.classList.remove('hidden');
+      if (window.setQA709Tracking) window.setQA709Tracking(true);
+    } else {
+      primaryCanvas.classList.remove('hidden');
+      globeWrapper.classList.add('hidden');
+    }
+
+    // Update Header and Telemetry info
+    if (CAM_META[mode]) {
+      activeCamTitle.textContent = CAM_META[mode].title;
+      camStreamStatusLine.textContent = CAM_META[mode].status;
+    }
+  }
+
+  // Toggle Window Frame Bezel Mode
+  function setWindowBezelMode(mode) {
+    if (mode === 'oval') {
+      isOvalBezelActive = true;
+      ovalBezelFrame.classList.remove('hidden');
+      ovalBezelFrame.classList.add('flex');
+      bezelOvalBtn.className = 'px-2.5 py-1 rounded text-[10px] font-label-mono text-primary-container bg-primary-container/20 border border-primary-container/50 font-bold transition-all';
+      bezelHudBtn.className = 'px-2.5 py-1 rounded text-[10px] font-label-mono text-outline hover:text-on-surface transition-all';
+    } else {
+      isOvalBezelActive = false;
+      ovalBezelFrame.classList.add('hidden');
+      ovalBezelFrame.classList.remove('flex');
+      bezelHudBtn.className = 'px-2.5 py-1 rounded text-[10px] font-label-mono text-primary-container bg-primary-container/20 border border-primary-container/50 font-bold transition-all';
+      bezelOvalBtn.className = 'px-2.5 py-1 rounded text-[10px] font-label-mono text-outline hover:text-on-surface transition-all';
+    }
+  }
+
+  // Toggle Ambient Flight Window Background
+  function toggleAmbientBackdrop() {
+    isBackdropActive = !isBackdropActive;
+    const statusText = document.getElementById('ambientToggleStatus');
+    if (isBackdropActive) {
+      ambientCanvas.style.opacity = '0.6';
+      statusText.textContent = 'ACTIVE';
+      statusText.className = 'text-primary-container font-bold';
+    } else {
+      ambientCanvas.style.opacity = '0.05';
+      statusText.textContent = 'OFF';
+      statusText.className = 'text-outline font-bold';
+    }
+  }
+
+  // Animation Loops for Realistic Flight Window Streams & Telemetry Graphics
+  let time = 0;
+  function renderAllStreams() {
+    time += 0.025;
+
+    // 1. Render Ambient Background Flight Window (Sunset, Clouds, Stars)
+    if (ambientCanvas && isBackdropActive) {
+      const actx = ambientCanvas.getContext('2d');
+      const w = ambientCanvas.width;
+      const h = ambientCanvas.height;
+
+      // Deep twilight strato gradient
+      const skyGrad = actx.createLinearGradient(0, 0, 0, h);
+      skyGrad.addColorStop(0, '#020512');
+      skyGrad.addColorStop(0.4, '#040d28');
+      skyGrad.addColorStop(0.68, '#0b1f4d');
+      skyGrad.addColorStop(0.74, '#262954');
+      skyGrad.addColorStop(0.82, '#703348');
+      skyGrad.addColorStop(0.88, '#d87040');
+      skyGrad.addColorStop(1, '#ffaa44');
+      actx.fillStyle = skyGrad;
+      actx.fillRect(0, 0, w, h);
+
+      // Distant Stratosphere Cloud Deck drifting smoothly
+      actx.fillStyle = 'rgba(235, 245, 255, 0.08)';
+      for (let i = 0; i < 6; i++) {
+        const cx = ((time * 40 + i * (w / 4)) % (w + 400)) - 200;
+        const cy = h * 0.72 + Math.sin(time * 0.5 + i) * 12;
+        actx.beginPath();
+        actx.ellipse(cx, cy, 320, 45, 0, 0, Math.PI * 2);
+        actx.fill();
+      }
+
+      // Fast moving atmospheric slipstream streaks
+      actx.strokeStyle = 'rgba(0, 240, 255, 0.12)';
+      actx.lineWidth = 1.5;
+      for (let s = 0; s < 10; s++) {
+        const sx = ((time * 300 + s * 180) % (w + 200)) - 100;
+        const sy = (s * 80 + Math.sin(time + s) * 20) % (h * 0.65);
+        actx.beginPath();
+        actx.moveTo(sx, sy);
+        actx.lineTo(sx - 120, sy + 30);
+        actx.stroke();
+      }
+    }
+
+    // 2. Render Main Stage Camera Canvas based on active tab
+    if (primaryCanvas && currentCamMode !== 'orbit') {
+      const ctx = primaryCanvas.getContext('2d');
+      const cw = primaryCanvas.width;
+      const ch = primaryCanvas.height;
+      ctx.clearRect(0, 0, cw, ch);
+
+      if (currentCamMode === 'wing') {
+        // --- VIEW 1: SEAT 14A PASSENGER WINDOW - WING & JET ENGINE ---
+        // Sky gradient with sunset edge
+        const grad = ctx.createLinearGradient(0, 0, 0, ch);
+        grad.addColorStop(0, '#020617');
+        grad.addColorStop(0.45, '#071638');
+        grad.addColorStop(0.65, '#1e295d');
+        grad.addColorStop(0.72, '#914251');
+        grad.addColorStop(0.82, '#f97316');
+        grad.addColorStop(0.9, '#fde047');
+        grad.addColorStop(1, '#1e293b');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, cw, ch);
+
+        // Animated ocean cloud blanket below
+        ctx.fillStyle = 'rgba(224, 236, 255, 0.22)';
+        for (let j = 0; j < 8; j++) {
+          const cx = ((time * 80 + j * (cw / 3)) % (cw + 400)) - 200;
+          const cy = ch * 0.78 + Math.sin(time * 0.8 + j) * 8;
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 220, 36, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Airplane Wing Geometry (Dreamliner raked wing)
+        ctx.save();
+        ctx.fillStyle = '#1c2538';
+        ctx.beginPath();
+        ctx.moveTo(0, ch * 0.88);
+        ctx.lineTo(cw * 0.74, ch * 0.44);
+        ctx.lineTo(cw * 0.82, ch * 0.28); // winglet tip
+        ctx.lineTo(cw * 0.84, ch * 0.32);
+        ctx.lineTo(cw * 0.65, ch * 0.58);
+        ctx.lineTo(0, ch);
+        ctx.closePath();
+        ctx.fill();
+
+        // Wing highlights and panel lines
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, ch * 0.88);
+        ctx.lineTo(cw * 0.74, ch * 0.44);
+        ctx.lineTo(cw * 0.82, ch * 0.28);
+        ctx.stroke();
+
+        // GEnx Jet Engine Nacelle
+        ctx.fillStyle = '#111827';
+        ctx.beginPath();
+        ctx.ellipse(cw * 0.38, ch * 0.74, cw * 0.12, ch * 0.16, -0.12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Jet engine inner spinner cone & heat shimmer
+        ctx.fillStyle = '#050a17';
+        ctx.beginPath();
+        ctx.arc(cw * 0.38, ch * 0.74, 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Winglet Strobe Beacon (flashes realistic red/white)
+        const strobeOn = Math.floor(time * 2.5) % 2 === 0 && (time * 10 % 2 < 0.6);
+        if (strobeOn) {
+          ctx.fillStyle = '#ff2244';
+          ctx.shadowColor = '#ff3366';
+          ctx.shadowBlur = 24;
+          ctx.beginPath();
+          ctx.arc(cw * 0.82, ch * 0.28, 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // Engine exhaust heat blur ripples
+        ctx.strokeStyle = 'rgba(255, 184, 107, 0.25)';
+        ctx.lineWidth = 2;
+        for (let r = 0; r < 5; r++) {
+          const rx = cw * 0.48 + r * 30 + Math.sin(time * 12 + r) * 6;
+          const ry = ch * 0.75 + Math.cos(time * 10 + r) * 5;
+          ctx.beginPath();
+          ctx.arc(rx, ry, 15 + r * 8, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+      } else if (currentCamMode === 'cockpit') {
+        // --- VIEW 2: COCKPIT HEADS-UP FLIGHT DECK (HUD) ---
+        ctx.fillStyle = '#03081a';
+        ctx.fillRect(0, 0, cw, ch);
+
+        // Synthetic Horizon & Pitch Ladder
+        const pitchOffset = Math.sin(time * 0.6) * 15;
+        const rollAngle = Math.sin(time * 0.4) * 0.04;
+
+        ctx.save();
+        ctx.translate(cw / 2, ch / 2);
+        ctx.rotate(rollAngle);
+
+        // Ground terrain wireframe grid
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+        ctx.lineWidth = 1;
+        for (let y = 30; y < ch / 2; y += 22) {
+          ctx.beginPath();
+          ctx.moveTo(-cw / 2, y + pitchOffset);
+          ctx.lineTo(cw / 2, y + pitchOffset);
+          ctx.stroke();
+        }
+
+        // Pitch ladder ticks
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 1.5;
+        for (let p = -3; p <= 3; p++) {
+          if (p === 0) continue;
+          const py = p * 40 + pitchOffset;
+          ctx.beginPath();
+          ctx.moveTo(-60, py);
+          ctx.lineTo(-20, py);
+          ctx.lineTo(-20, py + (p > 0 ? 6 : -6));
+          ctx.moveTo(60, py);
+          ctx.lineTo(20, py);
+          ctx.lineTo(20, py + (p > 0 ? 6 : -6));
+          ctx.stroke();
+          ctx.fillStyle = '#00f0ff';
+          ctx.font = '10px JetBrains Mono';
+          ctx.fillText((p * 10) + '°', 68, py + 3);
+        }
+
+        // Central Aircraft Flight Director Pip
+        ctx.strokeStyle = '#ffb86b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, 0, 8, 0, Math.PI * 2);
+        ctx.moveTo(-25, 0);
+        ctx.lineTo(-8, 0);
+        ctx.moveTo(8, 0);
+        ctx.lineTo(25, 0);
+        ctx.moveTo(0, -8);
+        ctx.lineTo(0, -18);
+        ctx.stroke();
+
+        ctx.restore();
+
+        // Speed Tape (Left) & Alt Tape (Right)
+        ctx.fillStyle = 'rgba(5, 13, 37, 0.85)';
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+        ctx.fillRect(20, ch * 0.2, 70, ch * 0.6);
+        ctx.strokeRect(20, ch * 0.2, 70, ch * 0.6);
+        ctx.fillRect(cw - 90, ch * 0.2, 70, ch * 0.6);
+        ctx.strokeRect(cw - 90, ch * 0.2, 70, ch * 0.6);
+
+        ctx.fillStyle = '#00f0ff';
+        ctx.font = '12px JetBrains Mono';
+        ctx.fillText('IAS 480', 26, ch * 0.48);
+        ctx.fillText('M 0.88', 26, ch * 0.54);
+        ctx.fillText('39,000', cw - 84, ch * 0.48);
+        ctx.fillText('FL 390', cw - 84, ch * 0.54);
+
+      } else if (currentCamMode === 'nose') {
+        // --- VIEW 3: NOSE SLIPSTREAM & CLOUD BREAKTHROUGH ---
+        const skyG = ctx.createRadialGradient(cw / 2, ch / 2, 20, cw / 2, ch / 2, cw * 0.8);
+        skyG.addColorStop(0, '#10275c');
+        skyG.addColorStop(0.6, '#061333');
+        skyG.addColorStop(1, '#020612');
+        ctx.fillStyle = skyG;
+        ctx.fillRect(0, 0, cw, ch);
+
+        // High velocity supersonic slipstream warp lines
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        for (let k = 0; k < 28; k++) {
+          const angle = (k / 28) * Math.PI * 2;
+          const dist = ((time * 400 + k * 35) % (cw * 0.6)) + 20;
+          const x1 = cw / 2 + Math.cos(angle) * dist;
+          const y1 = ch / 2 + Math.sin(angle) * dist;
+          const x2 = cw / 2 + Math.cos(angle) * (dist + 60);
+          const y2 = ch / 2 + Math.sin(angle) * (dist + 60);
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+        }
+
+        // Nose radome HUD reticle
+        ctx.strokeStyle = '#ffb86b';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(cw / 2, ch / 2, 40, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(255, 184, 107, 0.1)';
+        ctx.fill();
+
+      } else if (currentCamMode === 'lidar') {
+        // --- VIEW 4: BELLY QUANTUM LIDAR & TERRAIN TOPOGRAPHY ---
+        ctx.fillStyle = '#040d1a';
+        ctx.fillRect(0, 0, cw, ch);
+
+        // Topographical elevation scan waves
+        ctx.lineWidth = 1;
+        for (let row = 0; row < 18; row++) {
+          const ry = ch * 0.18 + row * 18;
+          ctx.strokeStyle = row % 2 === 0 ? 'rgba(0, 240, 255, 0.4)' : 'rgba(255, 184, 107, 0.3)';
+          ctx.beginPath();
+          for (let x = 0; x < cw; x += 15) {
+            const elevation = Math.sin((x * 0.02) + (row * 0.4) + time * 2) * 14 +
+                              Math.cos((x * 0.05) - time) * 8;
+            if (x === 0) ctx.moveTo(x, ry + elevation);
+            else ctx.lineTo(x, ry + elevation);
+          }
+          ctx.stroke();
+        }
+
+        // LIDAR Sweeping Radar crossbeam
+        const sweepY = (time * 120) % ch;
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, sweepY);
+        ctx.lineTo(cw, sweepY);
+        ctx.stroke();
+      }
+    }
+
+    // 3. Render Mini PIP Canvases on Bento Flight Cards
+    document.querySelectorAll('.pip-canvas').forEach((pip, idx) => {
+      const pctx = pip.getContext('2d');
+      const pw = pip.width;
+      const ph = pip.height;
+      pctx.clearRect(0, 0, pw, ph);
+
+      const style = pip.dataset.pipStyle;
+      if (style === 'wing-engine') {
+        // Mini QA-709 engine stream
+        const pGrad = pctx.createLinearGradient(0, 0, 0, ph);
+        pGrad.addColorStop(0, '#061338');
+        pGrad.addColorStop(0.7, '#da6e35');
+        pGrad.addColorStop(1, '#050b18');
+        pctx.fillStyle = pGrad;
+        pctx.fillRect(0, 0, pw, ph);
+        // Wing shape
+        pctx.fillStyle = '#1c2538';
+        pctx.beginPath();
+        pctx.moveTo(0, ph);
+        pctx.lineTo(pw * 0.8, ph * 0.3);
+        pctx.lineTo(0, ph * 0.7);
+        pctx.fill();
+      } else if (style === 'aurora-orbit') {
+        // Suborbital QA-304 with green aurora
+        pctx.fillStyle = '#020510';
+        pctx.fillRect(0, 0, pw, ph);
+        // Aurora ribbons
+        pctx.strokeStyle = 'rgba(52, 211, 153, 0.4)';
+        pctx.lineWidth = 4;
+        pctx.beginPath();
+        pctx.moveTo(0, ph * 0.4);
+        pctx.bezierCurveTo(pw * 0.3, ph * 0.1, pw * 0.7, ph * 0.6, pw, ph * 0.3);
+        pctx.stroke();
+      } else if (style === 'coastline-lidar') {
+        // AF-441 coast pass
+        pctx.fillStyle = '#031024';
+        pctx.fillRect(0, 0, pw, ph);
+        pctx.strokeStyle = '#00f0ff';
+        pctx.lineWidth = 1;
+        for (let r = 0; r < 6; r++) {
+          pctx.beginPath();
+          pctx.moveTo(0, 20 + r * 16);
+          pctx.lineTo(pw, 20 + r * 16 + Math.sin(time + r) * 5);
+          pctx.stroke();
+        }
+      } else {
+        // Dawn clouds
+        const dawnG = pctx.createLinearGradient(0, 0, 0, ph);
+        dawnG.addColorStop(0, '#0a1d47');
+        dawnG.addColorStop(0.8, '#ff8a50');
+        dawnG.addColorStop(1, '#030814');
+        pctx.fillStyle = dawnG;
+        pctx.fillRect(0, 0, pw, ph);
+      }
+    });
+
+    animFrameId = requestAnimationFrame(renderAllStreams);
+  }
+
+  // Initial initialization
+  document.addEventListener('DOMContentLoaded', () => {
+    resizeAllCanvases();
+    renderAllStreams();
+  });
+</script>
+</body></html>
